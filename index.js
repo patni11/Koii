@@ -1,7 +1,6 @@
-const {coreLogic} = require("./coreLogic");
+const { coreLogic } = require("./coreLogic");
 const { app } = require("./init");
 const { namespaceWrapper } = require("./namespaceWrapper");
-
 
 async function setup() {
   console.log("setup function called");
@@ -15,21 +14,17 @@ async function setup() {
     } else if (m.functionCall == "auditPayload") {
       console.log("auditPayload called");
       coreLogic.auditTask(m.roundNumber);
-    }
-    else if(m.functionCall == "executeTask") {
+    } else if (m.functionCall == "executeTask") {
       console.log("executeTask called");
       coreLogic.task();
-    }
-    else if(m.functionCall == "generateAndSubmitDistributionList") {
+    } else if (m.functionCall == "generateAndSubmitDistributionList") {
       console.log("generateAndSubmitDistributionList called");
       coreLogic.submitDistributionList(m.roundNumber);
-    }
-    else if(m.functionCall == "distributionListAudit") {
+    } else if (m.functionCall == "distributionListAudit") {
       console.log("distributionListAudit called");
       coreLogic.auditDistribution(m.roundNumber);
     }
   });
-
 
   /* GUIDE TO CALLS K2 FUNCTIONS MANUALLY
 
@@ -43,14 +38,13 @@ async function setup() {
 
   */
 
-  // Get the task state 
+  // Get the task state
   //console.log(await namespaceWrapper.getTaskState());
 
-  //GET ROUND 
+  //GET ROUND
 
   // const round = await namespaceWrapper.getRound();
   // console.log("ROUND", round);
-
 
   // Call to do the work for the task
 
@@ -58,10 +52,9 @@ async function setup() {
 
   // Submission to K2 (Preferablly you should submit the cid received from IPFS)
 
+  //await coreLogic.submitTask(round - 1);
 
-   //await coreLogic.submitTask(round - 1);
-
-  // Audit submissions 
+  // Audit submissions
 
   //await coreLogic.auditTask(round - 1);
 
@@ -78,11 +71,7 @@ async function setup() {
   // const responsePayout = await namespaceWrapper.payoutTrigger();
   // console.log("RESPONSE TRIGGER", responsePayout);
 
-
-
-
-
-
+  // Changing comment to see if it works
 }
 
 setup();
@@ -92,13 +81,12 @@ if (app) {
   //  For Example
   //  app.post('/accept-cid', async (req, res) => {})
 
-  // Sample API that return your task state 
+  // Sample API that return your task state
 
-  app.get('/taskState', async (req, res) => {
+  app.get("/taskState", async (req, res) => {
     const state = await namespaceWrapper.getTaskState();
-   console.log("TASK STATE", state);
+    console.log("TASK STATE", state);
 
-  res.status(200).json({ taskState: state })
-  })
+    res.status(200).json({ taskState: state });
+  });
 }
-
